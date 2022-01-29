@@ -21,7 +21,7 @@ This is an app to know the current weather conditions of a city.
 
 ### Links
 
-https://simonemarketti.github.io/weather-app
+https://simonemarketti.github.io/weather-now-app/
 
 ### Notes
 
