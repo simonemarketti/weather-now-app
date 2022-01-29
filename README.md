@@ -9,7 +9,7 @@ This is an app to know the current weather conditions of a city.
 - Fetch API
 - Asynchronous javscript (async/await)
 - Create a searchbar
-- DOM's manipulation
+- DOM manipulation
 
 ### Languages and tools
 
