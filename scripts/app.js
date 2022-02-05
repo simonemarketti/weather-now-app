@@ -4,6 +4,9 @@ const card = document.querySelector(".card");
 const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
+const saveCity = document.querySelector("#save");
+
+
 
 // Retrieve city info from api
 const updateCity = async (city) => {
@@ -11,11 +14,10 @@ const updateCity = async (city) => {
   const weather = await getWeather(cityDets.Key);
 
   return { cityDets, weather };
-
 }
 
 // update the UI
-const updateUI = (data) => {
+const updateUI = async (data) => {
   const { cityDets, weather } = data;
 
   // display card
@@ -42,8 +44,12 @@ const updateUI = (data) => {
 
   // set icon
   icon.setAttribute("src", `assets/icons/${weather.WeatherIcon}.svg`)
-
+  
+  // store last searched city in localStorage
+  let citySearched = cityDets.EnglishName;
+  localStorage.setItem("searched", citySearched);
 };
+
 
 // Add event listener and invoke functions
 cityForm.addEventListener("submit", e => {
@@ -57,4 +63,23 @@ cityForm.addEventListener("submit", e => {
     .catch(err => console.log(err));
 
 });
+
+saveCity.addEventListener("change", () => {
+  let citySearched = localStorage.getItem("searched");
+  if (saveCity.checked) {
+    localStorage.setItem("checked", "yes"); 
+    localStorage.setItem("favourite", citySearched); 
+  } else {
+    localStorage.removeItem('favourite');
+    localStorage.removeItem('checked');
+  }
+  })
+
+if (localStorage.getItem("favourite")) {
+  saveCity.checked = true;
+  updateCity(localStorage.getItem("favourite")).
+  then(data => updateUI(data)).
+  catch(err => console.log(err))
+} 
+
 

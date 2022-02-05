@@ -22,7 +22,7 @@
       <form class="change-location my-4 text-center text-muted">
         <label for="city" class="py-2">Enter a location for weather information</label>
         <input type="text" name="city" class="form-control p-4" autocomplete="off">
-      </form>
+        </form>
     </header>
 
     <!-- Weather Card -->
@@ -40,8 +40,11 @@
           <span>&deg; C</span>
         </div>
       </div>
+      <form class="form-check form-switch my-3 mx-auto px-0">
+        <input class="form-check-input mx-0" type="checkbox" id="save">
+        <label class="form-check-label mx-3" for="save">Favourite City</label>
+      </form>
     </div>
-
   </div>
 
   <script src="scripts/forecast.js"></script>

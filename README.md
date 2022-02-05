@@ -2,12 +2,13 @@
 
 ## Overview
 
-This is an app to know the current weather conditions of a city.
+This is an app to know the current weather conditions of a city. You can save your favourite city.
 
 ### Concepts
 
 - Fetch API
 - Asynchronous javscript (async/await)
+- Local Storage
 - Create a searchbar
 - DOM manipulation
 
