@@ -7,26 +7,25 @@ const icon = document.querySelector(".icon img");
 const saveCity = document.querySelector("#save");
 
 
-
-// Retrieve city info from api
+// Create function to etrieve city info from api
 const updateCity = async (city) => {
-  const cityDets = await getCity(city);
-  const weather = await getWeather(cityDets.Key);
+    const cityDets = await getCity(city);
+    const weather = await getWeather(cityDets.Key);
 
-  return { cityDets, weather };
+    return {cityDets, weather};
 }
 
-// update the UI
+// Create function to update UI
 const updateUI = async (data) => {
-  const { cityDets, weather } = data;
+    const {cityDets, weather} = data;
 
-  // display card
-  if (card.classList.contains("d-none")) {
-    card.classList.remove("d-none");
-  }
+    // display card
+    if (card.classList.contains("d-none")) {
+        card.classList.remove("d-none");
+    }
 
-  // update weather info 
-  details.innerHTML = `
+    // update weather info
+    details.innerHTML = `
     <p class="my-3 fs-3">${cityDets.EnglishName}</p>
     <p class="my-3 fs-5 fst-italic fw-bold">${weather.WeatherText}</p>
     <div class="display-4 my-4">
@@ -35,51 +34,51 @@ const updateUI = async (data) => {
     </div>
 `;
 
-  // update day/nigth image
-  if (weather.IsDayTime) {
-    time.setAttribute("src", "assets/day.svg")
-  } else {
-    time.setAttribute("src", "assets/night.svg")
-  }
+    // update day/nigth image
+    if (weather.IsDayTime) {
+        time.setAttribute("src", "assets/day.svg")
+    } else {
+        time.setAttribute("src", "assets/night.svg")
+    }
 
-  // set icon
-  icon.setAttribute("src", `assets/icons/${weather.WeatherIcon}.svg`)
-  
-  // store last searched city in localStorage
-  let citySearched = cityDets.EnglishName;
-  localStorage.setItem("searched", citySearched);
+    // set icon
+    icon.setAttribute("src", `assets/icons/${weather.WeatherIcon}.svg`)
+
+    // store last searched city in localStorage
+    let citySearched = cityDets.EnglishName;
+    localStorage.setItem("searched", citySearched);
 };
 
 
 // Add event listener and invoke functions
 cityForm.addEventListener("submit", e => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const city = cityForm.city.value.trim();
-  cityForm.reset();
+    const city = cityForm.city.value.trim();
+    cityForm.reset();
 
-  updateCity(city)
-    .then(data => updateUI(data))
-    .catch(err => console.log(err));
+    updateCity(city)
+        .then(data => updateUI(data))
+        .catch(err => console.log(err));
 
 });
 
+// Add button to save favourite city in localstorage
 saveCity.addEventListener("change", () => {
-  let citySearched = localStorage.getItem("searched");
-  if (saveCity.checked) {
-    localStorage.setItem("checked", "yes"); 
-    localStorage.setItem("favourite", citySearched); 
-  } else {
-    localStorage.removeItem('favourite');
-    localStorage.removeItem('checked');
-  }
-  })
+    let citySearched = localStorage.getItem("searched");
+    if (saveCity.checked) {
+        localStorage.setItem("checked", "yes");
+        localStorage.setItem("favourite", citySearched);
+    } else {
+        localStorage.removeItem('favourite');
+        localStorage.removeItem('checked');
+    }
+})
 
+// automatic loading favourite city if is present in localstorage
 if (localStorage.getItem("favourite")) {
-  saveCity.checked = true;
-  updateCity(localStorage.getItem("favourite")).
-  then(data => updateUI(data)).
-  catch(err => console.log(err))
+    saveCity.checked = true;
+    updateCity(localStorage.getItem("favourite")).then(data => updateUI(data)).catch(err => console.log(err))
 } 
 
 
